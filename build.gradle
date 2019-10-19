@@ -39,13 +39,9 @@ jacocoTestCoverageVerification {
                 value = 'COVEREDRATIO'
                 minimum = 1.00
             }
-            limit {
-                counter = 'BRANCH'
-                value = 'COVEREDRATIO'
-                minimum = 1.00
-            }
         }
     }
+    dependsOn jacocoTestReport
 }
 
 check.dependsOn jacocoTestCoverageVerification
