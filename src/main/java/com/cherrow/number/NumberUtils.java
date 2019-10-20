@@ -29,6 +29,8 @@ public class NumberUtils {
                 // checking hex (it can't be anything else)
                 for (; i < chars.length; i++) {
                     //超出十六进制范围 invalid
+                    // 0 asc码为48 9为57 a为97 f为102 A为65 F为70
+                    // <=0; >=9&&<=A; >=F&&<=a; >=f
                     if ((chars[i] < '0' || chars[i] > '9')
                             && (chars[i] < 'a' || chars[i] > 'f')
                             && (chars[i] < 'A' || chars[i] > 'F')) {
@@ -36,7 +38,7 @@ public class NumberUtils {
                     }
                 }
                 return true;
-                //0后面没有x，以0开头有可能是8进制
+                //0后面没有x，以0开头而且后面跟的是数字，有可能是8进制
             } else if (Character.isDigit(chars[start + 1])) {
                 // leading 0, but not hex, must be octal
                 int i = start + 1;
@@ -125,6 +127,10 @@ public class NumberUtils {
             if (chars[i] == 'l'
                     || chars[i] == 'L') {
                 // not allowing L with an exponent or decimal point
+                // foundDigit=false
+                // foundDigit=true hasExp=true
+                // foundDigit=true hasExp=false hasDecPoint=true
+                // foundDigit=true hasExp=false hasDecPoint=false
                 return foundDigit && !hasExp && !hasDecPoint;
             }
             // last character is illegal
